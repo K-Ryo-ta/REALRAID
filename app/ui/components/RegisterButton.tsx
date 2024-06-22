@@ -7,11 +7,11 @@ const RegisterButton = () => {
   const router = useRouter();
 
   const handleButtonClick = (e :React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-		console.log('ボタンが押されました');
-		router.push('/room_create_or_join');
+    e.preventDefault()
+		console.log('ボタンが押されました')
+		router.push('/room_create_or_join')
 	};
-  
+
   return (
     <div>
       <button onClick={(e) => handleButtonClick(e)} className={styles.button}>

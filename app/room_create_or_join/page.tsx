@@ -1,13 +1,13 @@
 import React from 'react';
 import styles from './Page.module.css';
-import CreateRoomButton from '../ui/components/CreateRoomButton';
-import JoinRoomButton from '../ui/components/JoinRoomButton';
+import CreateRoomRootButton from '../ui/components/CreateRoomRootButton';
+import JoinRoomRootButton from '../ui/components/JoinRoomRootButton';
 
 const Page = () => {
   return (
     <div className={styles.container}>
-      <CreateRoomButton />
-      <JoinRoomButton />
+      <CreateRoomRootButton />
+      <JoinRoomRootButton />
     </div>
   );
 };

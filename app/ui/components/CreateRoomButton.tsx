@@ -1,20 +1,23 @@
-'use client';
-import React from 'react';
-import styles from '../../room_create_or_join/Page.module.css';
-import { useRouter } from 'next/navigation';
+'use client'; 
+import React from 'react'
+import styles from '../../room_create/Page.module.css'
+import { useRouter } from 'next/navigation'
+
 
 const CreateRoomButton = () => {
 	const router = useRouter();
-  const handleButtonCreateRoom = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    console.log('Create Room');
-		router.push('./room_create')
-  };
-
+	const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+			e.preventDefault()
+			console.log('Create Room')
+			router.push('./join_members')
+	};
   return (
-    <button onClick={(e) => handleButtonCreateRoom(e)} className={styles.button}>
-      Create Room
-    </button>
-  );
-};
+    <div>
+        <button onClick={(e) => handleButtonClick(e)} className={styles.button}>
+            作成
+        </button>
+    </div>
+  )
+}
 
-export default CreateRoomButton;
+export default CreateRoomButton
