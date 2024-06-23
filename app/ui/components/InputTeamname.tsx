@@ -2,9 +2,11 @@
 import React from 'react'
 import styles from '../../register/Page.module.css'
 import { useState } from 'react'
+import { useRecoilState } from 'recoil';
+import { teamnameState } from '../../states';
 
 const InputTeamname = () => {
-	const [teamname, setTeamname] = useState<string>('');
+	const [teamname, setTeamname] = useRecoilState<string>(teamnameState);
 	console.log('teamname', teamname);
   return (
     <div>

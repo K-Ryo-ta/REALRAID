@@ -2,9 +2,11 @@
 import React from 'react'
 import styles from '../../register/Page.module.css'
 import { useState } from 'react'
+import { useRecoilState } from 'recoil';
+import { usernameState } from '../../states';
 
 const InputUsername = () => {
-	const [username, setUsername] = useState<string>('');
+	const [username, setUsername] = useRecoilState<string>(usernameState);
 	console.log('username', username);
 	return (
 		<div>

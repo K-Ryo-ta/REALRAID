@@ -2,9 +2,11 @@
 import React from 'react'
 import { useState } from 'react';
 import styles from '../../room_create/Page.module.css'
+import { useRecoilState } from 'recoil';
+import { teampasswordState } from '../../states';
 
-const InputTeampassword = () => {
-	const [teampassword, setTeampassword] = useState<string>('');
+const CreateTeampassword = () => {
+	const [teampassword, setTeampassword] = useRecoilState<string>(teampasswordState);
 	
   return (
     <div>
@@ -19,4 +21,4 @@ const InputTeampassword = () => {
   )
 }
 
-export default InputTeampassword
+export default CreateTeampassword

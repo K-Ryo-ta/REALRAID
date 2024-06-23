@@ -4,6 +4,7 @@ import styles from '../../room_join/Page.module.css'
 import { useRouter } from 'next/navigation'
 
 const JoinRoomButton = () => {
+	// matchってやつ
 	const router = useRouter();
 	const handleClick = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 			e.preventDefault()

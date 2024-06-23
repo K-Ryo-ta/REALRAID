@@ -12,7 +12,7 @@ const CreateRoomButton = () => {
   };
 
   return (
-    <button onClick={(e) => handleButtonCreateRoom(e)} className={styles.button}>
+    <button onClick={(e) => handleButtonCreateRoom(e)} className={styles.button} >
       Create Room
     </button>
   );
