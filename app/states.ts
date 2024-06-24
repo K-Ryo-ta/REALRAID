@@ -24,3 +24,8 @@ export const teampasswordState = atom<string>({
     key: 'teampasswordState', 
     default: '',
 });
+
+export const roomfullState = atom<boolean>({
+    key: 'roomfullState', 
+    default: false,
+});
