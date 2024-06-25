@@ -1,0 +1,10 @@
+.container {
+    margin-inline: auto;
+    margin-block: 10px;
+    background-color: #dddddd;
+    height: 100px;
+    width: 70%;
+    border-radius: 20px;
+    align-content: center;
+    text-align: center;
+}
