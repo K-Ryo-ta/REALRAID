@@ -29,3 +29,8 @@ export const roomfullState = atom<boolean>({
     key: 'roomfullState', 
     default: false,
 });
+
+export const resultState = atom<number>({
+    key: 'resultState', 
+    default: 0,
+});

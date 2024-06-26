@@ -38,6 +38,7 @@ const useCreateRoom = () => {
       await setDoc(roomRef, {
         current_people_in_room: 1,
         status: 'matching',
+        correct: 0,
       });
       setError(''); // エラーをクリア
     } catch (error) {
