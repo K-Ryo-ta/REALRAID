@@ -19,33 +19,26 @@ const useCreateRoom = () => {
       const data = querySnapshot.data();
       setRoomStatus(data?.status || "");
       if (!data) return;
-      if (Number(data.current_people_in_room) !== 4) return;
+      if (Number(data.users.length) !== 4) return;
       if (data.status !== "playing") return;
       setLoading(false);
     });
   }
 
-  const createRoom = async () => {
+  const createRoom = async (teampassword: string, username: string, teamname: string) => {
     console.log('Create Room');
     if (!teampassword) {
       setError('パスワードを入力してください');
       return;
     }
-
-    const roomRef = doc(collection(db, 'rooms'), teampassword);
-
-    try {
+      const roomRef = doc(db, 'rooms', teampassword);
       await setDoc(roomRef, {
-        current_people_in_room: 1,
-        status: 'matching',
+        teamname: teamname,
+        users: [username],
+        status: 'waiting',
+        creator: username,
         correct: 0,
       });
-      setError(''); // エラーをクリア
-    } catch (error) {
-      console.error('部屋の作成中にエラーが発生しました:', error);
-      setError('部屋の作成中にエラーが発生しました');
-    }
-
     // RoomManagementをここで呼び出す
     RoomManagement(teampassword);
   };

@@ -28,6 +28,8 @@ const Result = () => {
 			setError('部屋の更新中にエラーが発生しました');
 		}
 	}
+	getCorrect();
+	
   return (
     <div>
 			<p>正解数：{correct_result}</p>

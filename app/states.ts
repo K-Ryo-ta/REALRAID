@@ -34,3 +34,14 @@ export const resultState = atom<number>({
     key: 'resultState', 
     default: 0,
 });
+
+export const isCreatorState = atom<boolean>({
+  key: 'isCreatorState',
+  default: false,
+});
+
+export const allAnswerState = atom<string[]>({
+    key: 'allAnswerState',
+    default: [],
+});
+

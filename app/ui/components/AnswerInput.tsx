@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import { animaldata } from '../../data'
 import { db } from '@/app/lib/firebase';
 import { collection, addDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { teampasswordState } from '@/app/states';
 import  useCreateRoom  from '@/app/lib/useCreateRoom';
+import { allAnswerState } from '@/app/states';
 
 const AnswerInput: React.FC = () => {
   const [answer, setAnswer] = useState<string>('');
   const teampassword = useRecoilValue(teampasswordState);
   const [error, setError] = useState<string>('');
   const { RoomManagement } = useCreateRoom();
+  const [allAnswer, setAllAnswer] = useRecoilState(allAnswerState);
+
 
   const updateCorrect = async () => {
 
@@ -39,6 +42,7 @@ const AnswerInput: React.FC = () => {
     for(let i = 0; i < animaldata.length; i++){
         if (answer === animaldata[i]){
             updateCorrect();
+            setAllAnswer([...allAnswer, answer]);
         }
     }
   }
