@@ -1,67 +1,47 @@
 'use client';
 import React, { useState } from 'react';
-import styles from '../../room_join/Page.module.css';
 import { useRouter } from 'next/navigation';
-import { db } from "../../lib/firebase";
-import {
-  collection,
-  doc,
-  getDoc,
-  updateDoc,
-} from "firebase/firestore";
-import { useRecoilValue } from 'recoil';
-import { teampasswordState } from '@/app/states';
-import useCreateRoom from '@/app/lib/useCreateRoom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { teampasswordState, usernameState, isCreatorState } from '@/app/states';
+import { db } from '@/app/lib/firebase';
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
 
-const JoinRoomButton = () => {
-  const teampassword = useRecoilValue(teampasswordState);
-  const [error, setError] = useState<string>('');
-  const { RoomManagement } = useCreateRoom();
+const JoinRoomButton: React.FC = () => {
   const router = useRouter();
+  const teampassword = useRecoilValue(teampasswordState);
+  const username = useRecoilValue(usernameState);
+  const setIsCreator = useSetRecoilState(isCreatorState);
+  const [error, setError] = useState<string | null>(null);
 
-  const matching = async () => {
-    if (!teampassword) {
-      setError('パスワードを入力してください');
+  const handleClick = async () => {
+    if (!teampassword || !username) {
+      setError('パスワードとユーザー名を入力してください');
       return;
     }
 
-    // 部屋の参加人数とステータスを更新
-    const roomsRef = doc(collection(db, 'rooms'), teampassword);
-
     try {
-      const docSnapshot = await getDoc(roomsRef);
-      const data = docSnapshot.data();
-      if (data && data.current_people_in_room) {
-				if(Number(data.current_people_in_room) < 4){
-					const newNumPeople = Number(data.current_people_in_room) + 1;
-					await updateDoc(roomsRef, {
-						current_people_in_room: newNumPeople,
-						status: newNumPeople === 4 ? "playing" : "matching",
-					});
-				}
+      const roomRef = doc(db, 'rooms', teampassword);
+      const roomSnap = await getDoc(roomRef);
+
+      if (roomSnap.exists()) {
+        await updateDoc(roomRef, {
+          users: roomSnap.data().users ? [...roomSnap.data().users, username] : [username],
+        });
+        setIsCreator(false); // 参加者として設定
+        router.push(`join_members`);
+      } else {
+        setError('部屋が存在しません');
       }
-    } catch (error) {
-      console.error("Error updating document: ", error);
-      setError('部屋の更新中にエラーが発生しました');
+    } catch (err) {
+      console.error('部屋の参加に失敗しました', err);
+      setError('部屋の参加に失敗しました');
     }
-
-    // 部屋を監視
-    RoomManagement(teampassword);
-  };
-
-  const handleClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    console.log('Join Room');
-    await matching();
-    router.push('./join_members');
   };
 
   return (
     <div>
-      <button onClick={handleClick} className={styles.button}>
-        参加
-      </button>
       {error && <p>{error}</p>}
+      <button onClick={handleClick}>部屋に参加</button>
     </div>
   );
 };

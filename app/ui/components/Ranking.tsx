@@ -4,7 +4,8 @@ import { db } from '@/app/lib/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
 interface RoomData {
-  id: string;
+	id : string;
+  teamname: string;
   correct: number;
 }
 
@@ -20,7 +21,7 @@ const Ranking: React.FC = () => {
         querySnapshot.forEach((doc) => {
           const data = doc.data();
           if (data.correct !== undefined) {
-            roomsData.push({ id: doc.id, correct: data.correct });
+            roomsData.push({ id: data.id, teamname: data.teamname, correct: data.correct });
           }
         });
         roomsData.sort((a, b) => b.correct - a.correct); // 正解数が多い順にソート
@@ -44,7 +45,7 @@ const Ranking: React.FC = () => {
       <ul>
         {rooms.map((room, index) => (
           <li key={room.id}>
-            {index + 1}. Room ID: {room.id} - Correct Answers: {room.correct}
+            {index + 1}. Teamname: {room.teamname} - Correct Answers: {room.correct}
           </li>
         ))}
       </ul>

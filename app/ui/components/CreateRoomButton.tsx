@@ -1,49 +1,44 @@
-'use client'; 
-import React, { use } from 'react'
-import styles from '../../room_create/Page.module.css'
-import { teampasswordState } from '@/app/states';
-import { db } from "../../lib/firebase";
-import {
-  collection,
-  addDoc,
-  where,
-  query,
-  getDocs,
-  doc,
-  onSnapshot,
-  updateDoc,
-	setDoc,
-} from "firebase/firestore";
-
-import { useRouter } from 'next/navigation'
-import { useRecoilValue } from 'recoil';
-import { useState } from 'react';
-import useCreateRoom from '@/app/lib/useCreateRoom';
+'use client';
+import React,{useState} from 'react';
+import { useRouter } from 'next/navigation';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { teampasswordState, usernameState, isCreatorState } from '@/app/states';
+import  useCreateRoom  from '@/app/lib/useCreateRoom';
+import { db } from '@/app/lib/firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import { teamnameState } from '@/app/states';
 
 const CreateRoomButton = () => {
-	const router = useRouter();
-	const teampassword = useRecoilValue(teampasswordState);
-	const [error, setError] = useState<string>('');
-	const [loading, setLoading] = useState<boolean>(false);
-	const [roomStatus, setRoomStatus] = useState<string>('');
-	const [numPeople, setNumPeople] = useState<number>(0);
-	const [turn, setTurn] = useState<string>('');
-	const [status, setStatus] = useState<string>('');
-	const { createRoom } = useCreateRoom();
+  const router = useRouter();
+  const teampassword = useRecoilValue(teampasswordState);
+  const username = useRecoilValue(usernameState);
+	const [error, setError] = useState<string | null>(null);
+  const {createRoom, RoomManagement} = useCreateRoom();
+  const [, setIsCreator] = useRecoilState(isCreatorState);
+	const teamname = useRecoilValue(teamnameState);
 
-	const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-			e.preventDefault()
-			console.log('Create Room')
-			createRoom();
-			router.push('./join_members')
-	};
+  const handleClick = async () => {
+    if (!teampassword || !username) {
+      setError('パスワードとユーザー名を入力してください');
+      return;
+    }
+
+    try {
+      await createRoom(teampassword, username, teamname);
+      setIsCreator(true); // 作成者として設定
+      router.push(`join_members`);
+    } catch (err) {
+      console.error('部屋の作成に失敗しました', err);
+      setError('部屋の作成に失敗しました');
+    }
+  };
+
   return (
     <div>
-        <button onClick={(e) => handleButtonClick(e)} className={styles.button}>
-            作成
-        </button>
+      {error && <p>{error}</p>}
+      <button onClick={handleClick}>部屋を作成</button>
     </div>
-  )
-}
+  );
+};
 
-export default CreateRoomButton
+export default CreateRoomButton;

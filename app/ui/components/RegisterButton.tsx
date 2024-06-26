@@ -1,33 +1,31 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from '../../register/Page.module.css';
 import { useRouter } from 'next/navigation';
 import { useSaveUserinFirebase } from '@/app/lib/userhooks';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { roomfullState } from '@/app/states';
 
 const RegisterButton: React.FC = () => {
   const router = useRouter();
   const saveUser = useSaveUserinFirebase();
-  const [roomfull, setRoomfull] = useRecoilState(roomfullState);
+  const roomfull = useRecoilValue(roomfullState);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleButtonClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     console.log('ボタンが押されました');
     setIsLoading(true); // ローディング状態を設定
-    await saveUser();
-    console.log('roomfull after saveUser:', roomfull); // デバッグ情報追加
-    // 状態が更新された後に画面遷移を行う
-    setIsLoading(false);
-    const routerfunc = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      e.preventDefault();
-      if (roomfull === false) {
-        router.push('/room_create_or_join');
-      } else {
-        router.push('/register');
-      }
+
+    const isRoomFull = await saveUser();
+    setIsLoading(false); // ローディング状態を解除
+
+    // saveUser() の完了後に最新の roomfull の値を確認
+    if (!isRoomFull) {
+      router.push('/room_create_or_join');
+    } else {
+      console.log('このチームは満員です');
     }
-    routerfunc(e);
   };
 
   return (
