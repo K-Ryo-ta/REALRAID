@@ -5,7 +5,8 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    background-image: url(./../img/1719209392708.png);
+    background-size: cover;
   }
   
   .button {
