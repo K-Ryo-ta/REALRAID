@@ -1,8 +1,8 @@
 import React from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
-import Character from "./Character";
-import style from "../../room_create/Page.module.css";
+import Character from "../Character";
+import style from "../../../room_create/Page.module.css";
 
 type UsableCharacterColumnProps = {
   items: { id: string; content: string }[];
@@ -23,7 +23,7 @@ const UsableCharacterColumn: React.FC<UsableCharacterColumnProps> = ({
 const DraggableItem = ({ id, content }: { id: string; content: string }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,
-    data: { type: "fixed-item", content },
+    data: { type: "usable-item", content },
   });
 
   const style = {
