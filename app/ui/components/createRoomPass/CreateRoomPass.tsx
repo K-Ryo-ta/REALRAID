@@ -1,6 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { DndContext, rectIntersection } from "@dnd-kit/core";
+import {
+  DndContext,
+  rectIntersection,
+  TouchSensor,
+  MouseSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import AnswerColumn from "../AnswerColumn";
 import UsableCharacterColumn from "./UsableCharacterColumn";
@@ -79,8 +86,14 @@ const CreateRoomPass = () => {
     }
   };
 
+  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+
   return (
-    <DndContext onDragEnd={handleDragEnd} collisionDetection={rectIntersection}>
+    <DndContext
+      sensors={sensors}
+      onDragEnd={handleDragEnd}
+      collisionDetection={rectIntersection}
+    >
       <div
         style={{
           display: "flex",
