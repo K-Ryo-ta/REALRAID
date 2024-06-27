@@ -8,6 +8,7 @@
     background-color: #f0f0f0;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: "smartFont";
 }
 
 .input {
@@ -41,3 +42,8 @@
     background-color: #0056b3;
 }
 
+.h1{
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 32px;
+}
