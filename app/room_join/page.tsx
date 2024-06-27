@@ -1,7 +1,8 @@
-import React from 'react'
-import InputTeampassword from '../ui/components/InputTeamPassword'
-import styles from './Page.module.css'
-import JoinRoomButton from '../ui/components/JoinRoomButton'
+import React from "react";
+import InputTeampassword from "../ui/components/InputTeamPassword";
+import styles from "./Page.module.css";
+import JoinRoomButton from "../ui/components/JoinRoomButton";
+import InputRoomPass from "../ui/components/InputRoomPass/InputRoomPass";
 
 const page = () => {
   return (
@@ -12,8 +13,11 @@ const page = () => {
         <InputTeampassword />
         <JoinRoomButton />
       </div>
-    </div>
-  )
-}
 
-export default page
+    </div>
+  );
+};
+
+
+export default page;
+
