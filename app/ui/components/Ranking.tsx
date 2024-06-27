@@ -2,11 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '@/app/lib/firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import RankingUsers from './RankingUsers';
 
 interface RoomData {
 	id : string;
   teamname: string;
   correct: number;
+  users: string[];
 }
 
 const Ranking: React.FC = () => {
@@ -21,7 +23,7 @@ const Ranking: React.FC = () => {
         querySnapshot.forEach((doc) => {
           const data = doc.data();
           if (data.correct !== undefined) {
-            roomsData.push({ id: data.id, teamname: data.teamname, correct: data.correct });
+            roomsData.push({ id: data.id, teamname: data.teamname, correct: data.correct, users: data.users});
           }
         });
         roomsData.sort((a, b) => b.correct - a.correct); // 正解数が多い順にソート
@@ -41,14 +43,12 @@ const Ranking: React.FC = () => {
 
   return (
     <div>
-      <h2>Ranking</h2>
-      <ul>
-        {rooms.map((room, index) => (
-          <li key={room.id}>
-            {index + 1}. Teamname: {room.teamname} - Correct Answers: {room.correct}
-          </li>
-        ))}
-      </ul>
+      {rooms.map((room, index) => {console.log(index); return index < 5 ? <RankingUsers rank={index+1} teamname={room.teamname} corrects={room.correct} users={room.users}/> : null;}
+      //(
+      //<RankingUsers rank={index+1} teamname={room.teamname} corrects={room.correct} users={room.users}/>
+      //)
+      )
+    }
     </div>
   );
 };

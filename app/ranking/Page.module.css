@@ -40,3 +40,9 @@
 .button:hover {
     background-color: #0056b3;
 }
+
+.rankingrogo{
+    font-size:40px;
+    font-weight: bold;
+    color:#57CC02;
+}
