@@ -12,8 +12,14 @@ const JoinRoomButton = () => {
   };
 
   return (
-    <button onClick={(e)=>handleButtonJoinRoom(e)} className={styles.button}>
+    <button onClick={(e)=>handleButtonJoinRoom(e)} className='button_large_blue'>
+      <div className='background_b'>
       Join Room
+      </div>
+      <div className='line_b'>
+      Join Room
+      </div>
+      
     </button>
   );
 };

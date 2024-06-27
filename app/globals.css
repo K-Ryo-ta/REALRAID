@@ -1,3 +1,180 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+    font-family: "smartFont";
+    src: url("./font/03smartfont.woff2");
+}
+
+
+html {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-white);
+
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 0;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    font-family: "smartFont";
+    font-size: 18px;
+}
+
+:root {
+    --color-red: #DB5461;
+    --color-blue: #009FB7;
+    --color-yellow: #FFD23F;
+    --color-black: #020122;
+    --color-white: #F2F7FA;
+    --shadow-black: 2px 4px 16px 0 rgba(2, 1, 34, 0.2);
+    --liner-gradient: linear-gradient(45deg, var(--color-yellow), var(--color-blue));
+}
+
+.background_large {
+    width: 350px;
+    height: 804px;
+    padding: 0;
+    flex-direction: column;
+    flex-shrink: 0;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(180deg, #F2F7FA 0%, #F2F7FA 40%, rgba(242, 247, 250, 0.80) 100%);
+    align-items: center;
+    /* dropshadow */
+    box-shadow: 2px 4px 16px 0px rgba(2, 1, 34, 0.20);
+}
+
+.button_middle_background {
+    display: flex;
+    width: 200px;
+    height: 60px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    background: var(--liner-gradient);
+    border-radius: 24px;
+    align-items: center;
+}
+
+.button_middle_front {
+    background-color: white;
+    width: 194px;
+    height: 54px;
+    border-radius: 21px;
+    text-align: center;
+    align-items: center;
+    line-height: 54px;
+}
+
+.button_large_yellow {
+    width: 310px;
+    height: 100px;
+    position: relative;
+    margin: 324px auto 20px auto;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+
+
+}
+
+.button_large_yellow .line {
+    border: 3px solid var(--color-yellow);
+    width: 300px;
+    height: 90px;
+    position: absolute;
+    top: 0;
+    border-radius: 12px;
+    color:  rgba(255, 255, 255, 0);
+
+}
+
+.button_large_yellow .background {
+    width: 300px;
+    height: 90px;
+    position: absolute;
+    background-color: rgba(255, 236, 173, 1);
+    top: 10px;
+    left: 10px;
+    border-radius: 12px;
+    color: var(--color-black);
+    font-size: 26px;
+    text-align: center;
+    line-height: 90px;
+    font-family: "smartFont";
+    pointer-events: auto;
+}
+
+.button_large_yellow .line:hover{
+    top: 10px;
+    left: 10px;
+    background-color: var(--color-yellow);
+    color: white;
+    font-size: 26px;
+    font-family: "smartFont";
+    line-height: 90px;
+}
+
+.button_large_blue {
+    width: 310px;
+    height: 100px;
+    position: relative;
+    margin: 0 auto;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+
+}
+
+.button_large_blue .line_b {
+    border: 3px solid var(--color-blue);
+    width: 300px;
+    height: 90px;
+    position: absolute;
+    top: 0;
+    border-radius: 12px;
+    color:  rgba(255, 255, 255, 0);
+
+}
+
+.button_large_blue .background_b{
+    width: 300px;
+    height: 90px;
+    position: absolute;
+    background-color: rgba(234, 252, 255, 1);
+    top: 10px;
+    left: 10px;
+    border-radius: 12px;
+    color: var(--color-black);
+    font-size: 26px;
+    text-align: center;
+    line-height: 90px;
+    font-family: "smartFont";
+    pointer-events: auto;
+}
+
+.button_large_blue .line_b:hover{
+    top: 10px;
+    left: 10px;
+    background-color: var(--color-blue);
+    color: white;
+    font-size: 26px;
+    font-family: "smartFont";
+    line-height: 90px;
+}

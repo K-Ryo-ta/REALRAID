@@ -1,13 +1,13 @@
-import ClientSideComponents from '../ui/components/AnswerClientSideComponents'
-import styles from './Page.module.css'
+import ClientSideComponents from "../ui/components/answer/AnswerClientSideComponents";
+import CreateAnswer from "../ui/components/answer/CreateAnswer";
+import styles from "./Page.module.css";
 
 const page = () => {
-
   return (
     <div className={styles.container}>
-        <ClientSideComponents />
+      <CreateAnswer />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

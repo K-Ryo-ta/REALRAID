@@ -7,10 +7,14 @@ import RegisterButton from '../ui/components/RegisterButton';
 const page = () => {
 	return (
 		<div className={styles.container}>
-			<h1>チーム名とおなまえ登録</h1>
-			<InputTeamname />
-			<InputUsername />
-			<RegisterButton />
+			<div className='background_large'>
+				<h1 className={styles.anm}>チーム名とおなまえ登録</h1>
+				<p className={styles.font_small}>◾️◾️◾️ チーム名 ◾️◾️◾️</p>
+				<InputTeamname />
+				<p className={styles.font_small}>◾️◾️◾️ なまえ ◾️◾️◾️</p>
+				<InputUsername />
+				<RegisterButton />
+			</div>
 		</div>
 	);
 }

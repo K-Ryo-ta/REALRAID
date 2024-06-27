@@ -30,8 +30,10 @@ const RegisterButton: React.FC = () => {
 
   return (
     <div>
-      <button onClick={handleButtonClick} className={styles.button} disabled={isLoading}>
-        登録
+      <button onClick={handleButtonClick} className='button_middle_background' disabled={isLoading}>
+        <div className='button_middle_front'>
+          登録
+        </div>
       </button>
       {isLoading && <p>処理中...</p>}
     </div>
