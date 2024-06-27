@@ -40,3 +40,28 @@
 .button:hover {
     background-color: #0056b3;
 }
+
+.rankingusers{ 
+    padding:20px 0;
+}
+
+.rank{
+    float: left;
+    font-size: 22px;
+    color:#57CC02;
+    font-weight: bold;
+}
+
+.teamname{
+    padding:0 20px;
+    display: inline-block;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.corrects{
+    float: right;
+    font-size: 22px;
+    color:#A2A2A2;
+    font-weight: bold;
+}
