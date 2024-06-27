@@ -12,6 +12,7 @@ import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/app/lib/firebase";
 import useCreateRoom from "@/app/lib/useCreateRoom";
 import { animaldata } from "../../../data";
+import styles from "../../../answer/Page.module.css";
 
 // アイテムの型定義
 type Item = {
@@ -27,6 +28,10 @@ const CreateRoomPass = () => {
   const { RoomManagement } = useCreateRoom();
   const [allAnswer, setAllAnswer] = useRecoilState(allAnswerState);
   const [answerStr, setAnswerStr] = useState("");
+
+  // 正解アニメーション用の状態
+  const [isCorrect, setIsCorrect] = useState<boolean>(false);
+  const [correctCount, setCorrectCount] = useState<number>(0); // 正解数を管理する状態
 
   // Recoil状態からチーム名を取得
   const teamname = useRecoilValue(teamnameState);
@@ -95,7 +100,11 @@ const CreateRoomPass = () => {
       if (answerStr === animaldata[i] && !allAnswer.includes(answerStr)) {
         updateCorrect();
         setAllAnswer([...allAnswer, answerStr]);
+        setCorrectCount((prevCount) => prevCount + 1); // 正解数を更新
         console.log("正解です");
+        // 正解時にアニメーションをトリガー
+        setIsCorrect(true);
+        setTimeout(() => setIsCorrect(false), 1000); // 1秒後にアニメーションを終了
       }
     }
     // 解答欄を空にして使える文字をリセット
@@ -195,13 +204,16 @@ const CreateRoomPass = () => {
         }}
       >
         <Timer onTimeUp={handleTimeUp} />
-        <AnswerColumn
-          id="answer-column"
-          items={answerItems}
-          setItems={setAnswerItems}
-        />
+        <div className={isCorrect ? styles.correctAnimation : ""}>
+          <AnswerColumn
+            id="answer-column"
+            items={answerItems}
+            setItems={setAnswerItems}
+          />
+        </div>
         <UsableCharacterColumn items={usableItems} />
         <button onClick={handleSubmit}>回答</button>
+        <div>正解数: {correctCount}</div> {/* 正解数を表示 */}
       </div>
     </DndContext>
   );
