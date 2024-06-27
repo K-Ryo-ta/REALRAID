@@ -41,7 +41,11 @@ const JoinRoomButton: React.FC = () => {
   return (
     <div>
       {error && <p>{error}</p>}
-      <button onClick={handleClick}>部屋に参加</button>
+      <button onClick={handleClick} className='button_middle_background'>
+        <div className='button_middle_front'>
+          部屋に参加
+        </div>
+      </button>
     </div>
   );
 };
