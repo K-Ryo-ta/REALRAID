@@ -43,12 +43,15 @@ const Ranking: React.FC = () => {
 
   return (
     <div>
-      {rooms.map((room, index) => {console.log(index); return index < 5 ? <RankingUsers rank={index+1} teamname={room.teamname} corrects={room.correct} users={room.users}/> : null;}
-      //(
-      //<RankingUsers rank={index+1} teamname={room.teamname} corrects={room.correct} users={room.users}/>
-      //)
-      )
-    }
+      <h2 className='ranking_h2'>Ranking</h2>
+      <ul className='ranking_ul'>
+        {rooms.map((room, index) => index < 5 ? (
+          <li key={room.id} className='ranking_list'>
+            <p className='lip1'>{index + 1}. Teamname: <span>{room.teamname}</span></p>
+            <p className='lip2'>Correct Answers: <span>{room.correct}</span></p>
+          </li>
+        ):null )}
+      </ul>
     </div>
   );
 };
