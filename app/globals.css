@@ -40,12 +40,11 @@ body {
 }
 
 .background_large {
-    display: flex;
     width: 350px;
     height: 804px;
     padding: 534px 30px 204px 13px;
+    padding: 0;
     flex-direction: column;
-    justify-content: flex-end;
     flex-shrink: 0;
     border-radius: 24px;
     background: linear-gradient(180deg, #F2F7FA 0%, #F2F7FA 40%, rgba(242, 247, 250, 0.80) 100%);
@@ -77,4 +76,105 @@ body {
     text-align: center;
     align-items: center;
     line-height: 54px;
+}
+
+.button_large_yellow {
+    width: 310px;
+    height: 100px;
+    position: relative;
+    margin: 324px auto 20px auto;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+
+
+}
+
+.button_large_yellow .line {
+    border: 3px solid var(--color-yellow);
+    width: 300px;
+    height: 90px;
+    position: absolute;
+    top: 0;
+    border-radius: 12px;
+    color:  rgba(255, 255, 255, 0);
+
+}
+
+.button_large_yellow .background {
+    width: 300px;
+    height: 90px;
+    position: absolute;
+    background-color: rgba(255, 236, 173, 1);
+    top: 10px;
+    left: 10px;
+    border-radius: 12px;
+    color: var(--color-black);
+    font-size: 26px;
+    text-align: center;
+    line-height: 90px;
+    font-family: "smartFont";
+    pointer-events: auto;
+}
+
+.button_large_yellow .line:hover{
+    top: 10px;
+    left: 10px;
+    background-color: var(--color-yellow);
+    color: white;
+    font-size: 26px;
+    font-family: "smartFont";
+    line-height: 90px;
+}
+
+.button_large_blue {
+    width: 310px;
+    height: 100px;
+    position: relative;
+    margin: 0 auto;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+
+}
+
+.button_large_blue .line_b {
+    border: 3px solid var(--color-blue);
+    width: 300px;
+    height: 90px;
+    position: absolute;
+    top: 0;
+    border-radius: 12px;
+    color:  rgba(255, 255, 255, 0);
+
+}
+
+.button_large_blue .background_b{
+    width: 300px;
+    height: 90px;
+    position: absolute;
+    background-color: rgba(234, 252, 255, 1);
+    top: 10px;
+    left: 10px;
+    border-radius: 12px;
+    color: var(--color-black);
+    font-size: 26px;
+    text-align: center;
+    line-height: 90px;
+    font-family: "smartFont";
+    pointer-events: auto;
+}
+
+.button_large_blue .line_b:hover{
+    top: 10px;
+    left: 10px;
+    background-color: var(--color-blue);
+    color: white;
+    font-size: 26px;
+    font-family: "smartFont";
+    line-height: 90px;
 }
