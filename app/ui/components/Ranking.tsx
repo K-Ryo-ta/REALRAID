@@ -41,11 +41,12 @@ const Ranking: React.FC = () => {
 
   return (
     <div>
-      <h2>Ranking</h2>
-      <ul>
+      <h2 className='ranking_h2'>Ranking</h2>
+      <ul className='ranking_ul'>
         {rooms.map((room, index) => (
-          <li key={room.id}>
-            {index + 1}. Teamname: {room.teamname} - Correct Answers: {room.correct}
+          <li key={room.id} className='ranking_list'>
+            <p className='lip1'>{index + 1}. Teamname: <span>{room.teamname}</span></p>
+            <p className='lip2'>Correct Answers: <span>{room.correct}</span></p>
           </li>
         ))}
       </ul>

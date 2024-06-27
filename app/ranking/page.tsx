@@ -6,11 +6,13 @@ import Ranking from '../ui/components/Ranking'
 const page = () => {
   return (
     <div className={styles.container}>
-        <h1>
-            ランキング
+      <div className={styles.background}>
+        <h1 className={styles.h1}>
+          👑👑👑 ランキング 👑👑👑
         </h1>
-        <Ranking/>
-        <TitleRootButton/>
+        <Ranking />
+        <TitleRootButton />
+      </div>
     </div>
   )
 }
