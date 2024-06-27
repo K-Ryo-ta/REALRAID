@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { animaldata } from '../../data'
+import { animaldata } from '../../../data'
 import { db } from '@/app/lib/firebase';
 import { collection, addDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useRecoilValue, useRecoilState } from 'recoil';

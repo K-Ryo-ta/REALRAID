@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DndContext, rectIntersection } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import AnswerColumn from "../AnswerColumn";
@@ -28,12 +28,14 @@ const CreateRoomPass = () => {
     useRecoilState<string>(teampasswordState);
   const [usableItems, setUsableItems] = useState(INITIAL_USABLE_ITEMS);
 
-  const answeredItems = answerItems.map((item) => item.content);
-  const passPhrase = answeredItems.reduce(
-    (arr, character) => arr + character,
-    ""
-  );
-  setTeampassword(passPhrase);
+  useEffect(() => {
+    const answeredItems = answerItems.map((item) => item.content);
+    const passPhrase = answeredItems.reduce(
+      (arr, character) => arr + character,
+      ""
+    );
+    setTeampassword(passPhrase);
+  }, [answerItems, setTeampassword]);
 
   const handleDragEnd = (event: { active: any; over: any }) => {
     const { active, over } = event;
@@ -87,6 +89,7 @@ const CreateRoomPass = () => {
           gap: "16px",
         }}
       >
+        <h2>作成したパスワード: {teampassword}</h2>
         <AnswerColumn
           id="answer-column"
           items={answerItems}
