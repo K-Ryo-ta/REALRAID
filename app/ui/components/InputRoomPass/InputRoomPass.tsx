@@ -2,30 +2,44 @@
 import React, { useState } from "react";
 import { DndContext, rectIntersection } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
-import AnswerColumn from "./AnswerColumn";
-import UsableCharacterColumn from "./UsableCharacterColumn";
+import AnswerColumn from "../AnswerColumn";
+import UsableCharacterColumn from "../createRoomPass/UsableCharacterColumn";
+import { useRecoilState } from "recoil";
+import { teampasswordState } from "@/app/states";
 
-const INITIAL_FIXED_ITEMS = [
-  { id: "fixed-1", content: "1" },
-  { id: "fixed-2", content: "し" },
-  { id: "fixed-3", content: "か" },
-  { id: "fixed-4", content: "わ" },
-  { id: "fixed-5", content: "ま" },
-  { id: "fixed-6", content: "さ" },
-  { id: "fixed-7", content: "や" },
+const INITIAL_USABLE_ITEMS = [
+  { id: "usable-1", content: "1" },
+  { id: "usable-2", content: "2" },
+  { id: "usable-3", content: "3" },
+  { id: "usable-4", content: "4" },
+  { id: "usable-5", content: "5" },
+  { id: "usable-6", content: "6" },
+  { id: "usable-7", content: "7" },
+  { id: "usable-8", content: "8" },
+  { id: "usable-9", content: "9" },
+  { id: "usable-0", content: "0" },
 ];
 
-const CreateRoomPass = () => {
+const InputRoomPass = () => {
   const [answerItems, setAnswerItems] = useState<
     { id: string; content: string }[]
   >([]);
-  const [fixedItems, setFixedItems] = useState(INITIAL_FIXED_ITEMS);
+  const [teampassword, setTeampassword] =
+    useRecoilState<string>(teampasswordState);
+  const [usableItems, setUsableItems] = useState(INITIAL_USABLE_ITEMS);
+
+  const answeredItems = answerItems.map((item) => item.content);
+  const passPhrase = answeredItems.reduce(
+    (arr, character) => arr + character,
+    ""
+  );
+  setTeampassword(passPhrase);
 
   const handleDragEnd = (event: { active: any; over: any }) => {
     const { active, over } = event;
 
     if (
-      active.data.current?.type === "fixed-item" &&
+      active.data.current?.type === "usable-item" &&
       over &&
       over.id === "answer-column"
     ) {
@@ -34,7 +48,7 @@ const CreateRoomPass = () => {
           ...items,
           { id: active.id, content: active.data.current.content },
         ]);
-        setFixedItems((items) => items.filter((item) => item.id !== active.id));
+        setUsableItems((items) => items.filter((item) => item.id !== active.id));
       }
     } else if (over && active.id !== over.id) {
       const oldIndex = answerItems.findIndex((item) => item.id === active.id);
@@ -46,13 +60,13 @@ const CreateRoomPass = () => {
         setAnswerItems((items) =>
           items.filter((item) => item.id !== active.id)
         );
-        setFixedItems((items) =>
+        setUsableItems((items) =>
           [...items, item].sort(
             (a, b) =>
-              INITIAL_FIXED_ITEMS.findIndex(
+              INITIAL_USABLE_ITEMS.findIndex(
                 (fixedItem) => fixedItem.id === a.id
               ) -
-              INITIAL_FIXED_ITEMS.findIndex(
+              INITIAL_USABLE_ITEMS.findIndex(
                 (fixedItem) => fixedItem.id === b.id
               )
           )
@@ -71,18 +85,15 @@ const CreateRoomPass = () => {
           gap: "16px",
         }}
       >
-        <h2>DnDで文字を入れる並び替えあり</h2>
         <AnswerColumn
           id="answer-column"
           items={answerItems}
           setItems={setAnswerItems}
         />
-
-        <h2>名前が一文字づつ入るここは並び替えなし</h2>
-        <UsableCharacterColumn items={fixedItems} />
+        <UsableCharacterColumn items={usableItems} />
       </div>
     </DndContext>
   );
 };
 
-export default CreateRoomPass;
+export default InputRoomPass;

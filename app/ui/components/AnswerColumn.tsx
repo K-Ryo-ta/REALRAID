@@ -38,7 +38,7 @@ const SortableItem = ({ id, content }: { id: string; content: string }) => {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    zIndex: transform ? 9999 : "auto", // ドラッグ時に要素が上に表示されるようにする
+    zIndex: transform ? 9999 : "auto",
   };
 
   return (

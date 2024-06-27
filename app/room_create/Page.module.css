@@ -73,8 +73,10 @@
     min-width: 200px;
     display: flex;
     gap: 20px;
-    justify-content: center;
+    justify-content: left;
     padding: 10px;
     margin: 30px;
     border-radius: 20px;
+    max-width: 400px;
+    flex-wrap: wrap;
 }
