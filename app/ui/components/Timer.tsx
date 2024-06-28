@@ -16,7 +16,7 @@ const Timer: React.FC<TimerProps> = ({ onTimeUp }) => {
     }
   }, [time]);
 
-  return <p>{time}</p>;
+  return <p className='timer_time'>{time}<span>s</span></p>;
 };
 
 export default Timer;

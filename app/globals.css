@@ -205,3 +205,31 @@ body {
 .lip2{
     text-align: right;
 }
+
+.timer_time{
+    font-size: 64px;
+    text-align: center;
+    color: var(--color-blue);
+    margin-bottom: 20px;
+
+    span{
+        font-size: 32px;
+        color: var(--color-black);
+    }
+}
+
+.name_parts{
+
+    span{
+        font-size: 24px;
+        text-align: center;
+        line-height: 24px;
+        width: 24px;
+        height: 24px;
+        margin: 5px;
+        aspect-ratio: 1/1;
+        border-radius: 6px;
+        box-shadow: var(--shadow-black);
+        background-color: var(--color-white);
+    }
+}
