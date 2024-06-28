@@ -31,7 +31,7 @@ const UserList: React.FC = () => {
       {
         userList.map((user, index) => {
           return (
-            <div key={index}>
+            <div className={styles.username} key={index}>
               {user}
             </div>
           );
