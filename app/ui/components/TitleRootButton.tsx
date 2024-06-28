@@ -11,7 +11,9 @@ const TitleRootButton = () => {
 	}
   return (
 		<div>
-				<button onClick={(e)=>handleClick(e)} className={styles.button}>Titleへ</button>
+				<button onClick={(e)=>handleClick(e)} className='button_middle_background'>
+					<div className='button_middle_front'>Titleへ
+						</div></button>
 		</div>
   )
 }

@@ -6,9 +6,11 @@ import Result from '../ui/components/Result'
 const page = () => {
   return (
     <div className={styles.container}>
-        <h1>結果</h1>
-        <Result/>
-        <RankingRootButton/>
+      <div className={styles.background}>
+        <h1 className={styles.h1}>結果</h1>
+        <Result />
+        <RankingRootButton />
+      </div>
     </div>
   )
 }

@@ -1,13 +1,17 @@
 /* Page.module.css */
 .container {
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
     padding: 20px;
-    background-color: #f0f0f0;
+    background: linear-gradient(45deg,var(--color-red),var(--color-yellow));
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: "smartFont";
+    color: var(--color-white);
 }
 
 .input {
@@ -30,11 +34,13 @@
     padding: 10px 20px;
     font-size: 16px;
     color: #fff;
-    background-color: #007BFF;
+    background-color: var(--color-blue);
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease-out;
+    box-shadow: var(--shadow-black);
+
 }
 
 .button:hover {
@@ -45,25 +51,28 @@
     height: 60px;
     width: 60px;
     border-radius: 20px;
-    background-color: #D9D9D9;
+    background-color: var(--color-white);
+    color: var(--color-black);
     align-content: center;
     text-align: center;
     font-size: x-large;
     font-weight: bold;
     padding: 10px;
+    box-shadow: var(--shadow-black);
 }
 
 .answerColumn {
     padding: "8px";
     border: "1px solid black";
-    min-height: 80px;
-    min-width: 200px;
+    width: 300px;
+    height: 80px;
     display: flex;
     gap: 30px;
     justify-content: center;
     padding: 10px;
     margin: 30px;
     border-radius: 20px;
+    margin: 0 auto;
 }
 
 .UsableCharacterColumn {
@@ -73,10 +82,16 @@
     min-width: 200px;
     display: flex;
     gap: 20px;
-    justify-content: left;
+    justify-content: center;
     padding: 10px;
     margin: 30px;
     border-radius: 20px;
     max-width: 400px;
     flex-wrap: wrap;
+}
+
+.h1{
+    font-size: 32px;
+    color: var(--color-white);
+    margin-top: 60px;
 }
