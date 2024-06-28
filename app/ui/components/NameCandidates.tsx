@@ -34,7 +34,7 @@ const NameCandidates: React.FC = () => {
   return (
     <div className='name_parts'>
       {characters.map((char, index) => (
-        <span key={index}>{char} </span>
+        <span key={index} className='name_span'>{char} </span>
       ))}
     </div>
   );
