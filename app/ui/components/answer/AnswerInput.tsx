@@ -55,8 +55,8 @@ const AnswerInput: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" value={answer} onChange={(e)=>setAnswer(e.target.value)} />
-      <button type="submit">送信</button>
+      <input className='input_send_answer' type="text" value={answer} onChange={(e)=>setAnswer(e.target.value)} />
+      <button className='button_send' type="submit">送信</button>
     </form>
   );
 };

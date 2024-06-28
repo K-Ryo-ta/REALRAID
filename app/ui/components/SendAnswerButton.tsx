@@ -11,8 +11,8 @@ const SendAnswerButton = () => {
         router.push('/result')
     }
   return (
-    <div>
-        <button onClick={(e)=>handleClick(e)} className={styles.button}>送信</button>
+    <div className='button_middle_background'>
+        <button onClick={(e)=>handleClick(e)} className='button_middle_front'>回答を終了</button>
     </div>
   )
 }

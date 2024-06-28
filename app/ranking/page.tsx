@@ -8,7 +8,7 @@ const page = () => {
     <div className={styles.container}>
       <div className={styles.background}>
         <h1 className={styles.h1}>
-          👑👑👑 ランキング 👑👑👑
+          👑👑 ランキング 👑👑
         </h1>
         <Ranking />
         <TitleRootButton />
