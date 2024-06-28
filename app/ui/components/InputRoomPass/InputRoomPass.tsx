@@ -1,6 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import { DndContext, rectIntersection } from "@dnd-kit/core";
+import {
+  DndContext,
+  rectIntersection,
+  TouchSensor,
+  MouseSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import AnswerColumn from "../AnswerColumn";
 import UsableCharacterColumn from "../createRoomPass/UsableCharacterColumn";
@@ -48,7 +55,9 @@ const InputRoomPass = () => {
           ...items,
           { id: active.id, content: active.data.current.content },
         ]);
-        setUsableItems((items) => items.filter((item) => item.id !== active.id));
+        setUsableItems((items) =>
+          items.filter((item) => item.id !== active.id)
+        );
       }
     } else if (over && active.id !== over.id) {
       const oldIndex = answerItems.findIndex((item) => item.id === active.id);
@@ -75,8 +84,14 @@ const InputRoomPass = () => {
     }
   };
 
+  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+
   return (
-    <DndContext onDragEnd={handleDragEnd} collisionDetection={rectIntersection}>
+    <DndContext
+      sensors={sensors}
+      onDragEnd={handleDragEnd}
+      collisionDetection={rectIntersection}
+    >
       <div
         style={{
           display: "flex",
