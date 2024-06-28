@@ -1,0 +1,64 @@
+/* Page.module.css */
+.container {
+    width: 100vw;
+    height: 100vh;
+    max-width: 390px;
+    max-height: 844px;
+    padding: 40px;
+    margin: 0 auto;
+    background-image: url(./img/title.png);
+    background-size: contain;  /* これで背景画像がコンテナに収まります */
+    background-position: center;  /* 画像が中央に配置されるようにします */
+    background-repeat: no-repeat;  /* 画像が繰り返されないようにします */
+    font-family: "smartFont";
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+
+.input {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.input:focus {
+    border-color: --color-yellow;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+
+.anm{
+    margin-top: 240px;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.font_small{
+    margin-bottom: 5px;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
