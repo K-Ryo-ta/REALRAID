@@ -45,3 +45,7 @@ export const allAnswerState = atom<string[]>({
     default: [],
 });
 
+export const canSubmitState = atom<boolean>({
+    key: "canSubmitState",
+    default: true,
+  });
