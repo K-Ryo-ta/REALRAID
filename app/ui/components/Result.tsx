@@ -32,7 +32,7 @@ const Result = () => {
 	
   return (
     <div>
-			<p>正解数：{correct_result}</p>
+			<p>正解数：<span className='correct_span'>{correct_result}</span></p>
 		</div>
   )
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import InputTeampassword from "../ui/components/InputTeamPassword";
 import styles from "./Page.module.css";
 import JoinRoomButton from "../ui/components/JoinRoomButton";
 import InputRoomPass from "../ui/components/inputRoomPass/InputRoomPass";

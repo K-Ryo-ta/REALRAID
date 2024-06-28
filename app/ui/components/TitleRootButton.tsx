@@ -7,7 +7,7 @@ const TitleRootButton = () => {
 	const router = useRouter();
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 			console.log('clicked');
-			router.push('/register')
+			router.push('/')
 	}
   return (
 		<div>

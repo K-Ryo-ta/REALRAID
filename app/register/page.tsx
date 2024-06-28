@@ -8,7 +8,7 @@ const page = () => {
 	return (
 		<div className={styles.container}>
 			<div className='background_large'>
-				<h1 className={styles.anm}>チーム名とおなまえ登録</h1>
+				<h1 className={styles.anm}>チーム名とおなまえ 登録</h1>
 				<p className={styles.font_small}>◾️◾️◾️ チーム名 ◾️◾️◾️</p>
 				<InputTeamname />
 				<p className={styles.font_small}>◾️◾️◾️ なまえ ◾️◾️◾️</p>
