@@ -1,11 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { DndContext, rectIntersection } from "@dnd-kit/core";
+import {
+  DndContext,
+  rectIntersection,
+  TouchSensor,
+  MouseSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import AnswerColumn from "../AnswerColumn";
+import UsableCharacterColumn from "../createRoomPass/UsableCharacterColumn";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { allAnswerState, teamnameState, teampasswordState } from "@/app/states";
-import UsableCharacterColumn from "../createRoomPass/UsableCharacterColumn";
 import { useRouter } from "next/navigation";
 import Timer from "../Timer";
 import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
@@ -153,6 +160,8 @@ const CreateRoomPass = () => {
     console.log("teampassword updated: ", teampassword);
   }, [teampassword]);
 
+  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+
   // ドラッグ終了時の処理
   const handleDragEnd = (event: { active: any; over: any }) => {
     const { active, over } = event;
@@ -194,7 +203,11 @@ const CreateRoomPass = () => {
   };
 
   return (
-    <DndContext onDragEnd={handleDragEnd} collisionDetection={rectIntersection}>
+    <DndContext
+      sensors={sensors}
+      onDragEnd={handleDragEnd}
+      collisionDetection={rectIntersection}
+    >
       <div
         style={{
           display: "flex",
