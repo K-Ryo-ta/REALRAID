@@ -216,7 +216,9 @@ const CreateRoomPass = () => {
           gap: "16px",
         }}
       >
-        <Timer onTimeUp={handleTimeUp} />
+        <div className="self-start sticky top-0">
+          <Timer onTimeUp={handleTimeUp} />
+        </div>
         <div className={isCorrect ? styles.correctAnimation : ""}>
           <AnswerColumn
             id="answer-column"

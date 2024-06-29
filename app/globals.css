@@ -207,10 +207,12 @@ body {
 }
 
 .timer_time {
-    font-size: 64px;
+    font-size: 50px;
     text-align: center;
     color: var(--color-blue);
     margin-bottom: 20px;
+    position: sticky;
+    top: 0px;
 
     span {
         font-size: 32px;
