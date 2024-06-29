@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Page.module.css";
 import JoinRoomButton from "../ui/components/JoinRoomButton";
-import InputRoomPass from "../ui/components/InputRoomPass/InputRoomPass";
+import InputRoomPass from "../ui/components/inputRoomPass/InputRoomPass";
 
 const page = () => {
   return (
