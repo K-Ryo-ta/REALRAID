@@ -6,7 +6,7 @@ import JoinRoomRootButton from '../ui/components/JoinRoomRootButton';
 const Page = () => {
   return (
     <div className={styles.container}>
-      <div className='background_large'>
+      <div className={styles.background_large}>
         {/* <p className={styles.p}>◾️◾️◾️ GAME START ◾️◾️◾️</p> */}
 
         <CreateRoomRootButton />

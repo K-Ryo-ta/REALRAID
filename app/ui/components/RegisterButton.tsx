@@ -61,5 +61,4 @@ const RegisterButton: React.FC = () => {
     </div>
   );
 };
-
 export default RegisterButton;
