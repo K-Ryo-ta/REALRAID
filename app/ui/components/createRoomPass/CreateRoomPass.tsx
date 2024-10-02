@@ -108,7 +108,7 @@ const CreateRoomPass = () => {
           items={answerItems}
           setItems={setAnswerItems}
         />
-        <UsableCharacterColumn  items={usableItems} />
+        <UsableCharacterColumn items={usableItems} />
       </div>
     </DndContext>
   );

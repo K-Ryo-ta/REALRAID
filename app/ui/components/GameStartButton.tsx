@@ -1,12 +1,11 @@
-'use client';
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useRecoilValue } from 'recoil';
-import { teampasswordState, usernameState, isCreatorState } from '@/app/states';
-import { db } from '@/app/lib/firebase';
-import { doc, updateDoc, onSnapshot } from 'firebase/firestore';
-import styles from '../../join_members/Page.module.css';
-
+"use client";
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useRecoilValue } from "recoil";
+import { teampasswordState, usernameState, isCreatorState } from "@/app/states";
+import { db } from "@/app/lib/firebase";
+import { doc, updateDoc, onSnapshot } from "firebase/firestore";
+import styles from "../../join_members/Page.module.css";
 
 const GameStartButton: React.FC = () => {
   const router = useRouter();
@@ -17,10 +16,10 @@ const GameStartButton: React.FC = () => {
   useEffect(() => {
     if (!teampassword) return;
 
-    const roomRef = doc(db, 'rooms', teampassword);
+    const roomRef = doc(db, "rooms", teampassword);
     const unsubscribe = onSnapshot(roomRef, (docSnapshot) => {
       const data = docSnapshot.data();
-      if (data && data.status === 'started') {
+      if (data && data.status === "started") {
         router.push(`/answer`);
       }
     });
@@ -31,16 +30,16 @@ const GameStartButton: React.FC = () => {
   const handleClick = async () => {
     if (!teampassword || !username || !isCreator) {
       if (!isCreator) {
-        window.alert('部屋の作成者のみがゲームを開始できます');
+        window.alert("部屋の作成者のみがゲームを開始できます");
       }
       return;
     }
 
     try {
-      const roomRef = doc(db, 'rooms', teampassword);
-      await updateDoc(roomRef, { status: 'started' });
+      const roomRef = doc(db, "rooms", teampassword);
+      await updateDoc(roomRef, { status: "started" });
     } catch (err) {
-      console.error('ゲームの開始に失敗しました', err);
+      console.error("ゲームの開始に失敗しました", err);
     }
   };
 
@@ -48,7 +47,12 @@ const GameStartButton: React.FC = () => {
     return null;
   }
 
-  return <button className={styles.button} onClick = { handleClick } > ゲームを開始</ button>;
+  return (
+    <button className={styles.button} onClick={handleClick}>
+      {" "}
+      ゲームを開始
+    </button>
+  );
 };
 
-    export default GameStartButton;
+export default GameStartButton;

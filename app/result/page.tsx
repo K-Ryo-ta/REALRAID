@@ -1,7 +1,7 @@
-import React from 'react'
-import styles from './Page.module.css'
-import RankingRootButton from '../ui/components/RankingRootButton'
-import Result from '../ui/components/Result'
+import React from "react";
+import styles from "./Page.module.css";
+import RankingRootButton from "../ui/components/RankingRootButton";
+import Result from "../ui/components/Result";
 
 const page = () => {
   return (
@@ -12,7 +12,7 @@ const page = () => {
         <RankingRootButton />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;
