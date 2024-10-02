@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import styles from "../../result/Page.module.css";
+import styles from "../../../result/Page.module.css";
 
 const RankingRootButton = () => {
   const router = useRouter();

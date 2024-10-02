@@ -1,10 +1,10 @@
-'use client';
+"use client";
 import { db } from "./firebase";
 import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
-import { useRecoilValue } from 'recoil';
-import { usernameState } from '@/app/states';
-import { teamnameState } from '@/app/states';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from "recoil";
+import { usernameState } from "@/app/states";
+import { teamnameState } from "@/app/states";
+import { useRecoilState } from "recoil";
 import { roomfullState } from "@/app/states";
 
 export const useSaveUserinFirebase = () => {
@@ -13,7 +13,7 @@ export const useSaveUserinFirebase = () => {
   const [roomfull, setRoomfull] = useRecoilState<boolean>(roomfullState);
 
   const saveUser = async (): Promise<boolean> => {
-    const usersRef = doc(db, 'users', teamname); // teamnameをドキュメントIDとして使用
+    const usersRef = doc(db, "users", teamname); // teamnameをドキュメントIDとして使用
 
     try {
       const docSnapshot = await getDoc(usersRef);
@@ -27,7 +27,7 @@ export const useSaveUserinFirebase = () => {
           return false; // 部屋が満員ではない
         } else {
           setRoomfull(true);
-          window.alert('このチームは満員です');
+          window.alert("このチームは満員です");
           return true; // 部屋が満員
         }
       } else {
@@ -37,7 +37,7 @@ export const useSaveUserinFirebase = () => {
         return false; // 部屋が満員ではない
       }
     } catch (error) {
-      console.error('Error saving user: ', error);
+      console.error("Error saving user: ", error);
       return true; // エラーの場合は満員とみなす
     }
   };

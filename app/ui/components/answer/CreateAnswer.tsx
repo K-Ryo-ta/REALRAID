@@ -9,7 +9,7 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
-import AnswerColumn from "../AnswerColumn";
+import AnswerColumn from "./AnswerColumn";
 import UsableCharacterColumn from "../createRoomPass/UsableCharacterColumn";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { allAnswerState, teamnameState, teampasswordState } from "@/app/states";
