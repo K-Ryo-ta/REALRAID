@@ -2,8 +2,8 @@ import React from "react";
 import { useDroppable } from "@dnd-kit/core";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import Character from "./Character";
-import style from "../../room_create/Page.module.css";
+import Character from "../Character";
+import style from "../../../room_create/Page.module.css";
 
 type AnswerColumnProps = {
   id: string;

@@ -1,7 +1,7 @@
-import React from 'react'
-import styles from './Page.module.css'
-import GameStartButton from '../ui/components/GameStartButton'
-import UserList from '../ui/components/UserList'
+import React from "react";
+import styles from "./Page.module.css";
+import GameStartButton from "../ui/components/GameStartButton";
+import UserList from "../ui/components/UserList";
 
 const page = () => {
   return (
@@ -12,7 +12,7 @@ const page = () => {
         <GameStartButton />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

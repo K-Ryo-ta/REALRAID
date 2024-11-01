@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 interface TimerProps {
   onTimeUp: () => void;
@@ -16,7 +16,12 @@ const Timer: React.FC<TimerProps> = ({ onTimeUp }) => {
     }
   }, [time]);
 
-  return <p className='timer_time'>{time}<span>s</span></p>;
+  return (
+    <p className="timer_time">
+      {time}
+      <span>s</span>
+    </p>
+  );
 };
 
 export default Timer;

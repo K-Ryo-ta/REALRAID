@@ -9,7 +9,7 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
-import AnswerColumn from "../AnswerColumn";
+import AnswerColumn from "../answer/AnswerColumn";
 import UsableCharacterColumn from "./UsableCharacterColumn";
 import { useRecoilState } from "recoil";
 import { teampasswordState } from "@/app/states";
@@ -108,7 +108,7 @@ const CreateRoomPass = () => {
           items={answerItems}
           setItems={setAnswerItems}
         />
-        <UsableCharacterColumn  items={usableItems} />
+        <UsableCharacterColumn items={usableItems} />
       </div>
     </DndContext>
   );
