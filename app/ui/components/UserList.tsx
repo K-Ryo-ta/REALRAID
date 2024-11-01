@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useEffect } from "react";
+import React, { useEffect } from "react";
 import styles from "../../join_members/Page.module.css";
 import { db } from "../../lib/firebase";
 import { doc, onSnapshot, collection } from "firebase/firestore";
