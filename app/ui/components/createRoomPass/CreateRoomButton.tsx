@@ -2,12 +2,19 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { teampasswordState, usernameState, isCreatorState } from "@/app/states";
+import {
+  teampasswordState,
+  usernameState,
+  isCreatorState,
+  userIdState,
+  userListState,
+} from "@/app/states";
 import useCreateRoom from "@/app/lib/useCreateRoom";
 import { db } from "@/app/lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { teamnameState } from "@/app/states";
 import style from "../../../room_create/Page.module.css";
+import { insertTeamInfo } from "@/app/lib/supabase";
 
 const CreateRoomButton = () => {
   const router = useRouter();
@@ -17,6 +24,8 @@ const CreateRoomButton = () => {
   const { createRoom, RoomManagement } = useCreateRoom();
   const [, setIsCreator] = useRecoilState(isCreatorState);
   const teamname = useRecoilValue(teamnameState);
+  const host_id = useRecoilValue(userIdState);
+  const [userList, setUserList] = useRecoilState<string[]>(userListState);
 
   const handleClick = async () => {
     if (!teampassword || !username) {
@@ -26,11 +35,22 @@ const CreateRoomButton = () => {
 
     try {
       await createRoom(teampassword, username, teamname);
+      await insertTeamInfo(
+        teampassword,
+        host_id,
+        teamname,
+        username,
+        "waiting"
+      );
       setIsCreator(true); // 作成者として設定
+      const hostList = [username];
+      setUserList(hostList);
       router.push(`join_members`);
     } catch (err) {
-      console.error("部屋の作成に失敗しました", err);
-      setError("部屋の作成に失敗しました");
+      console.log("部屋の作成に失敗しました", err);
+      setError(
+        "部屋の作成に失敗しました。すでに存在するパスワードの可能性があります。"
+      );
     }
   };
 

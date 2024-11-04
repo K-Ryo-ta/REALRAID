@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./Page.module.css";
-import InputTeamname from "../ui/components/InputTeamname";
-import InputUsername from "../ui/components/InputUsername";
-import RegisterButton from "../ui/components/RegisterButton";
+import InputTeamname from "../ui/components/Formcomponents/InputTeamname";
+import InputUsername from "../ui/components/Formcomponents/InputUsername";
+import RegisterButton from "../ui/components/Formcomponents/RegisterButton";
 
 const page = () => {
   return (

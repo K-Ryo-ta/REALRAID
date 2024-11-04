@@ -12,7 +12,12 @@ import { arrayMove } from "@dnd-kit/sortable";
 import AnswerColumn from "./AnswerColumn";
 import UsableCharacterColumn from "../createRoomPass/UsableCharacterColumn";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { allAnswerState, teamnameState, teampasswordState } from "@/app/states";
+import {
+  allAnswerState,
+  teamnameState,
+  teampasswordState,
+  userListState,
+} from "@/app/states";
 import { useRouter } from "next/navigation";
 import Timer from "../Timer";
 import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
@@ -20,6 +25,7 @@ import { db } from "@/app/lib/firebase";
 import useCreateRoom from "@/app/lib/useCreateRoom";
 import { animaldata } from "../../../data";
 import styles from "../../../answer/Page.module.css";
+import { updateCorrectDB } from "@/app/lib/supabase";
 
 // アイテムの型定義
 type Item = {
@@ -50,56 +56,72 @@ const CreateRoomPass = () => {
   }, [usableCharacters]);
 
   // チーム名が変更された時にデータベースからユーザー名を取得
+  // useEffect(() => {
+  //   const fetchNames = async () => {
+  //     if (!teamname) return;
+
+  //     const usersDocRef = doc(db, "users", teamname);
+  //     const docSnapshot = await getDoc(usersDocRef);
+  //     const names: string[] = [];
+
+  //     if (docSnapshot.exists()) {
+  //       const data = docSnapshot.data();
+  //       if (Array.isArray(data?.username)) {
+  //         data.username.forEach((name: string) => {
+  //           names.push(...name.split(""));
+  //         });
+  //       }
+  //     }
+
+  //     setCharacters(names);
+  //     const characterObj = names.map((character, key) => {
+  //       return { id: `usable-${key}`, content: character };
+  //     });
+  //     setUsableCharacters(characterObj);
+  //   };
+
+  //   fetchNames();
+  // }, [teamname]);
+
+  //↑上記の処理をRecoilから取得するように変更
+  //Recoilから参加者リストを取得、取得したものを一文字ずつに分割してアイテムに変換
+  const [userList, setUserList] = useRecoilState<string[]>(userListState);
   useEffect(() => {
-    const fetchNames = async () => {
-      if (!teamname) return;
-
-      const usersDocRef = doc(db, "users", teamname);
-      const docSnapshot = await getDoc(usersDocRef);
-      const names: string[] = [];
-
-      if (docSnapshot.exists()) {
-        const data = docSnapshot.data();
-        if (Array.isArray(data?.username)) {
-          data.username.forEach((name: string) => {
-            names.push(...name.split(""));
-          });
-        }
-      }
-
-      setCharacters(names);
-      const characterObj = names.map((character, key) => {
-        return { id: `usable-${key}`, content: character };
-      });
-      setUsableCharacters(characterObj);
-    };
-
-    fetchNames();
+    const names: string[] = [];
+    userList.forEach((name: string) => {
+      names.push(...name.split(""));
+    });
+    setCharacters(names);
+    const characterObj = names.map((character, key) => {
+      return { id: `usable-${key}`, content: character };
+    });
+    setUsableCharacters(characterObj);
   }, [teamname]);
 
   const updateCorrect = async () => {
     console.log("update");
     // 部屋の参加人数とステータスを更新
     console.log("Updating document for password: ", teampassword);
-    const roomsRef = doc(collection(db, "rooms"), teampassword);
+    // const roomsRef = doc(collection(db, "rooms"), teampassword);
 
     try {
-      const docSnapshot = await getDoc(roomsRef);
-      const data = docSnapshot.data();
-      if (data) {
-        const newCountCorrect = Number(data.correct) + 1;
-        await updateDoc(roomsRef, {
-          correct: newCountCorrect,
-        });
-        console.log(newCountCorrect);
-      }
+      await updateCorrectDB(teampassword);
+      // const docSnapshot = await getDoc(roomsRef);
+      // const data = docSnapshot.data();
+      // if (data) {
+      //   const newCountCorrect = Number(data.correct) + 1;
+      //   await updateDoc(roomsRef, {
+      //     correct: newCountCorrect,
+      //   });
+      //   console.log(newCountCorrect);
+      // }
     } catch (error) {
       console.error("Error updating document: ", error);
       setError("部屋の更新中にエラーが発生しました");
     }
 
     // 部屋を監視
-    RoomManagement(teampassword);
+    // RoomManagement(teampassword);
   };
 
   const checkAnswer = () => {
