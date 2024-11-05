@@ -5,6 +5,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { teampasswordState, usernameState, isCreatorState } from "@/app/states";
 import { db } from "@/app/lib/firebase";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
+import { addMemberToTeam } from "@/app/lib/supabase";
 
 const JoinRoomButton: React.FC = () => {
   const router = useRouter();
@@ -20,23 +21,24 @@ const JoinRoomButton: React.FC = () => {
     }
 
     try {
-      const roomRef = doc(db, "rooms", teampassword);
-      const roomSnap = await getDoc(roomRef);
+      await addMemberToTeam(teampassword, username);
+      // const roomRef = doc(db, "rooms", teampassword);
+      // const roomSnap = await getDoc(roomRef);
 
-      if (roomSnap.exists()) {
-        await updateDoc(roomRef, {
-          users: roomSnap.data().users
-            ? [...roomSnap.data().users, username]
-            : [username],
-        });
-        setIsCreator(false); // 参加者として設定
-        router.push(`join_members`);
-      } else {
-        setError("部屋が存在しません");
-      }
+      // if (roomSnap.exists()) {
+      //   await updateDoc(roomRef, {
+      //     users: roomSnap.data().users
+      //       ? [...roomSnap.data().users, username]
+      //       : [username],
+      //   });
+      setIsCreator(false); // 参加者として設定
+      router.push(`join_members`);
+      // } else {
+      //   setError("部屋が存在しません");
+      // }
     } catch (err) {
       console.error("部屋の参加に失敗しました", err);
-      setError("部屋の参加に失敗しました");
+      setError("部屋の参加に失敗しました。存在しない部屋の可能性があります。");
     }
   };
 

@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import styles from "../../register/Page.module.css";
+import styles from "../../../register/Page.module.css";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { teamnameState } from "../../states";
+import { teamnameState } from "../../../states";
 
 const InputTeamname = () => {
   const [teamname, setTeamname] = useRecoilState<string>(teamnameState);

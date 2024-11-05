@@ -9,7 +9,86 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      Relation_Teams_Users: {
+        Row: {
+          created_at: string
+          relation_id: string
+          team_id: string
+          user_id: string[]
+        }
+        Insert: {
+          created_at?: string
+          relation_id?: string
+          team_id: string
+          user_id: string[]
+        }
+        Update: {
+          created_at?: string
+          relation_id?: string
+          team_id?: string
+          user_id?: string[]
+        }
+        Relationships: []
+      }
+      Teams: {
+        Row: {
+          correct: number | null
+          created_at: string
+          host_id: string | null
+          members: string[] | null
+          status: string | null
+          team_id: string
+          team_name: string | null
+        }
+        Insert: {
+          correct?: number | null
+          created_at?: string
+          host_id?: string | null
+          members?: string[] | null
+          status?: string | null
+          team_id: string
+          team_name?: string | null
+        }
+        Update: {
+          correct?: number | null
+          created_at?: string
+          host_id?: string | null
+          members?: string[] | null
+          status?: string | null
+          team_id?: string
+          team_name?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Teams_host_id_fkey"
+            columns: ["host_id"]
+            isOneToOne: false
+            referencedRelation: "Users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      Users: {
+        Row: {
+          created_at: string
+          id: string
+          teamname: string | null
+          username: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          teamname?: string | null
+          username?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          teamname?: string | null
+          username?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -106,4 +185,19 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    : never
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof PublicSchema["CompositeTypes"]
+    | { schema: keyof Database },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never

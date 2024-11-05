@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { db } from "@/app/lib/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import RankingUsers from "./RankingUsers";
+import { getAllTeams } from "@/app/lib/supabase";
+import { all } from "axios";
 
 interface RoomData {
   id: string;
@@ -18,19 +20,35 @@ const Ranking: React.FC = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "rooms"));
+        const allTeamsData = await getAllTeams();
+        // const querySnapshot = await getDocs(collection(db, "rooms"));
         const roomsData: RoomData[] = [];
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          if (data.correct !== undefined) {
+        allTeamsData.forEach((data) => {
+          if (
+            data.correct != null &&
+            data.team_name != null &&
+            data.team_id != null &&
+            data.members != null
+          ) {
             roomsData.push({
-              id: data.id,
-              teamname: data.teamname,
+              id: data.team_id,
+              teamname: data.team_name,
               correct: data.correct,
-              users: data.users,
+              users: data.members,
             });
           }
         });
+        // querySnapshot.forEach((doc) => {
+        //   const data = doc.data();
+        //   if (data.correct !== undefined) {
+        //     roomsData.push({
+        //       id: data.id,
+        //       teamname: data.teamname,
+        //       correct: data.correct,
+        //       users: data.users,
+        //     });
+        //   }
+        // });
         roomsData.sort((a, b) => b.correct - a.correct); // 正解数が多い順にソート
         setRooms(roomsData);
         setLoading(false);

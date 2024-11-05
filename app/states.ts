@@ -49,3 +49,8 @@ export const canSubmitState = atom<boolean>({
   key: "canSubmitState",
   default: true,
 });
+
+export const userIdState = atom<string>({
+  key: "userIdState",
+  default: "",
+});
