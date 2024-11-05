@@ -6,7 +6,7 @@
     max-height: 844px;
     padding: 40px;
     margin: 0 auto;
-    background-image: url(./img/title.png);
+    background-image: url(./img/mozimozititle.png);
     background-size: contain;  /* これで背景画像がコンテナに収まります */
     background-position: center;  /* 画像が中央に配置されるようにします */
     background-repeat: no-repeat;  /* 画像が繰り返されないようにします */
@@ -35,7 +35,6 @@
     outline: none;
 }
 
-
 .anm{
     margin-top: 240px;
     text-align: center;
@@ -61,4 +60,3 @@
 .button:hover {
     background-color: #0056b3;
 }
-

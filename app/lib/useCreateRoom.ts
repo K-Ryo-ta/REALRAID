@@ -1,14 +1,14 @@
-'use client';
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
 import { db } from "./firebase";
-import { doc, setDoc, collection,onSnapshot } from "firebase/firestore";
-import { useRecoilValue } from 'recoil';
-import { teampasswordState } from '../states';
+import { doc, setDoc, collection, onSnapshot } from "firebase/firestore";
+import { useRecoilValue } from "recoil";
+import { teampasswordState } from "../states";
 
 const useCreateRoom = () => {
   const teampassword = useRecoilValue(teampasswordState);
-  const [error, setError] = useState<string>('');
-  const [roomStatus, setRoomStatus] = useState<string>('');
+  const [error, setError] = useState<string>("");
+  const [roomStatus, setRoomStatus] = useState<string>("");
   const [numPeople, setNumPeople] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -23,22 +23,26 @@ const useCreateRoom = () => {
       if (data.status !== "playing") return;
       setLoading(false);
     });
-  }
+  };
 
-  const createRoom = async (teampassword: string, username: string, teamname: string) => {
-    console.log('Create Room');
+  const createRoom = async (
+    teampassword: string,
+    username: string,
+    teamname: string
+  ) => {
+    console.log("Create Room");
     if (!teampassword) {
-      setError('パスワードを入力してください');
+      setError("パスワードを入力してください");
       return;
     }
-      const roomRef = doc(db, 'rooms', teampassword);
-      await setDoc(roomRef, {
-        teamname: teamname,
-        users: [username],
-        status: 'waiting',
-        creator: username,
-        correct: 0,
-      });
+    const roomRef = doc(db, "rooms", teampassword);
+    await setDoc(roomRef, {
+      teamname: teamname,
+      users: [username],
+      status: "waiting",
+      creator: username,
+      correct: 0,
+    });
     // RoomManagementをここで呼び出す
     RoomManagement(teampassword);
   };

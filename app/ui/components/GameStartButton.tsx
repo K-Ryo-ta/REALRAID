@@ -1,12 +1,12 @@
-'use client';
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useRecoilValue } from 'recoil';
-import { teampasswordState, usernameState, isCreatorState } from '@/app/states';
-import { db } from '@/app/lib/firebase';
-import { doc, updateDoc, onSnapshot } from 'firebase/firestore';
-import styles from '../../join_members/Page.module.css';
-
+"use client";
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useRecoilValue } from "recoil";
+import { teampasswordState, usernameState, isCreatorState } from "@/app/states";
+import { db } from "@/app/lib/firebase";
+import { doc, updateDoc, onSnapshot } from "firebase/firestore";
+import styles from "../../join_members/Page.module.css";
+import { supabase, updateTeamStatus } from "@/app/lib/supabase";
 
 const GameStartButton: React.FC = () => {
   const router = useRouter();
@@ -16,31 +16,57 @@ const GameStartButton: React.FC = () => {
 
   useEffect(() => {
     if (!teampassword) return;
+    console.log("teampassword", teampassword);
+    const stautsSubscription = supabase
+      .channel(`team_status_${teampassword}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "Teams",
+          filter: `team_id=eq.${teampassword}`,
+        },
+        (payload) => {
+          console.log("payload status", payload.new.status);
+          if (payload.new.status === "started") {
+            router.push(`/answer`);
+          }
+        }
+      )
+      .subscribe();
+    console.log("subscription", stautsSubscription);
+    // クリーンアップ関数
+    return () => {
+      stautsSubscription.unsubscribe();
+    };
 
-    const roomRef = doc(db, 'rooms', teampassword);
-    const unsubscribe = onSnapshot(roomRef, (docSnapshot) => {
-      const data = docSnapshot.data();
-      if (data && data.status === 'started') {
-        router.push(`/answer`);
-      }
-    });
+    // const roomRef = doc(db, "rooms", teampassword);
+    // const unsubscribe = onSnapshot(roomRef, (docSnapshot) => {
+    //   const data = docSnapshot.data();
+    //   if (data && data.status === "started") {
+    //     router.push(`/answer`);
+    //   }
+    // });
 
-    return () => unsubscribe();
+    // return () => unsubscribe();
   }, [teampassword, router]);
 
   const handleClick = async () => {
     if (!teampassword || !username || !isCreator) {
       if (!isCreator) {
-        window.alert('部屋の作成者のみがゲームを開始できます');
+        window.alert("部屋の作成者のみがゲームを開始できます");
       }
       return;
     }
 
     try {
-      const roomRef = doc(db, 'rooms', teampassword);
-      await updateDoc(roomRef, { status: 'started' });
+      // const roomRef = doc(db, "rooms", teampassword);
+      // await updateDoc(roomRef, { status: "started" });
+      //ここでsupabaseのstatusをstartedにする。
+      await updateTeamStatus(teampassword, "started");
     } catch (err) {
-      console.error('ゲームの開始に失敗しました', err);
+      console.error("ゲームの開始に失敗しました", err);
     }
   };
 
@@ -48,7 +74,12 @@ const GameStartButton: React.FC = () => {
     return null;
   }
 
-  return <button className={styles.button} onClick = { handleClick } > ゲームを開始</ button>;
+  return (
+    <button className={styles.button} onClick={handleClick}>
+      {" "}
+      ゲームを開始
+    </button>
+  );
 };
 
-    export default GameStartButton;
+export default GameStartButton;
