@@ -4,7 +4,6 @@ import { db } from "@/app/lib/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import RankingUsers from "./RankingUsers";
 import { getAllTeams } from "@/app/lib/supabase";
-import { all } from "axios";
 
 interface RoomData {
   id: string;
