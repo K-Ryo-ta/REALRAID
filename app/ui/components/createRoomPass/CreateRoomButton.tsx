@@ -9,7 +9,6 @@ import {
   userIdState,
   userListState,
 } from "@/app/states";
-import useCreateRoom from "@/app/lib/useCreateRoom";
 import { db } from "@/app/lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { teamnameState } from "@/app/states";
@@ -21,7 +20,6 @@ const CreateRoomButton = () => {
   const teampassword = useRecoilValue(teampasswordState);
   const username = useRecoilValue(usernameState);
   const [error, setError] = useState<string | null>(null);
-  const { createRoom, RoomManagement } = useCreateRoom();
   const [, setIsCreator] = useRecoilState(isCreatorState);
   const teamname = useRecoilValue(teamnameState);
   const host_id = useRecoilValue(userIdState);
@@ -34,7 +32,6 @@ const CreateRoomButton = () => {
     }
 
     try {
-      await createRoom(teampassword, username, teamname);
       await insertTeamInfo(
         teampassword,
         host_id,

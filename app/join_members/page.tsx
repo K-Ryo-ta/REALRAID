@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Page.module.css";
-import GameStartButton from "../ui/components/GameStartButton";
 import UserList from "../ui/components/UserList";
+import JumpThemeSelectionPageButton from "../ui/components/JumpThemeSelectionPageButton";
 
 const page = () => {
   return (
@@ -9,7 +9,7 @@ const page = () => {
       <div className={styles.background}>
         <h1 className={styles.h1}>参加者一覧</h1>
         <UserList />
-        <GameStartButton />
+        <JumpThemeSelectionPageButton />
       </div>
     </div>
   );
