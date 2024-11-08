@@ -5,7 +5,6 @@ import { db } from "@/app/lib/firebase";
 import { collection, addDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { teampasswordState } from "@/app/states";
-import useCreateRoom from "@/app/lib/useCreateRoom";
 import { resultState } from "@/app/states";
 import { getCorrectDB } from "@/app/lib/supabase";
 

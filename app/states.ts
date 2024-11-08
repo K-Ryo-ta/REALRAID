@@ -54,3 +54,8 @@ export const userIdState = atom<string>({
   key: "userIdState",
   default: "",
 });
+
+export const themeWordsState = atom<string[]>({
+  key: "themeWordsState",
+  default: [],
+});
