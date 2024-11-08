@@ -134,6 +134,7 @@ const CreateRoomPass = () => {
         // 正解時にアニメーションをトリガー
         setIsCorrect(true);
         setTimeout(() => setIsCorrect(false), 1000); // 1秒後にアニメーションを終了
+        break;
       }
     }
     // 解答欄を空にして使える文字をリセット
