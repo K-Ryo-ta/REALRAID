@@ -17,12 +17,12 @@ import {
   teamnameState,
   teampasswordState,
   userListState,
+  themeWordsState,
 } from "@/app/states";
 import { useRouter } from "next/navigation";
 import Timer from "../Timer";
 import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/app/lib/firebase";
-import useCreateRoom from "@/app/lib/useCreateRoom";
 import { animaldata } from "../../../data";
 import styles from "../../../answer/Page.module.css";
 import { updateCorrectDB } from "@/app/lib/supabase";
@@ -38,9 +38,9 @@ const CreateRoomPass = () => {
   const [characters, setCharacters] = useState<string[]>([]);
   const [usableCharacters, setUsableCharacters] = useState<Item[]>([]);
   const [error, setError] = useState<string>("");
-  const { RoomManagement } = useCreateRoom();
   const [allAnswer, setAllAnswer] = useRecoilState(allAnswerState);
   const [answerStr, setAnswerStr] = useState("");
+  const correctWordsList = useRecoilValue(themeWordsState);
 
   // 正解アニメーション用の状態
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
@@ -125,8 +125,8 @@ const CreateRoomPass = () => {
   };
 
   const checkAnswer = () => {
-    for (let i = 0; i < animaldata.length; i++) {
-      if (answerStr === animaldata[i] && !allAnswer.includes(answerStr)) {
+    for (let i = 0; i < correctWordsList.length; i++) {
+      if (answerStr === correctWordsList[i] && !allAnswer.includes(answerStr)) {
         updateCorrect();
         setAllAnswer([...allAnswer, answerStr]);
         setCorrectCount((prevCount) => prevCount + 1); // 正解数を更新
