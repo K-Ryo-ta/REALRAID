@@ -3,7 +3,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import { themeWordsState } from "@/app/states";
 
-const CorrectList = () => {
+const CorrectList: React.FC = () => {
   const correctWordsList = useRecoilValue(themeWordsState);
   return (
     <div>
