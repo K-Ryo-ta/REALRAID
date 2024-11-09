@@ -12,7 +12,7 @@ import {
 import { supabase, updateTeamStatus } from "@/app/lib/supabase";
 import { ReturnThemeJSONData } from "@/app/lib/openAI";
 
-const InputQuestionForm = () => {
+const InputQuestionForm: React.FC = () => {
   const [theme, setTheme] = useState("");
   const isCreator = useRecoilValue(isCreatorState);
   const router = useRouter();
