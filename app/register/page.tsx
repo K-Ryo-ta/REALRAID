@@ -23,8 +23,13 @@ const page = () => {
 					フルネームをひらがなで入力してね！
 				</p>
 				<InputUsername />
+				<p className={styles.font_small}>
+					◾️◾️◾️ SNS ◾️◾️◾️<br></br>
+					ゲーム終了後にアカウントを共有できるよ！
+				</p>
 				<InputInstagramId />
 				<InputTwitterId />
+
 				<RegisterButton />
 			</div>
 		</div>
