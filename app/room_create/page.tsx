@@ -8,15 +8,21 @@ import Teamname from "../ui/components/Teamname";
 import CreateRoomPass from "../ui/components/createRoomPass/CreateRoomPass";
 
 const page = () => {
-  return (
-    <div className={styles.container}>
-      <h1 className={styles.h1}>部屋の作成</h1>
-      <Teamname />
+	return (
+		<div className={styles.container}>
+			<h1 className={styles.h1}>部屋の作成</h1>
+			<p className={styles.p}>
+				部屋のパスワードを
+				<br />
+				ドラッグ&ドロップで入力してください！
+			</p>
 
-      <CreateRoomPass />
-      <CreateRoomButton />
-    </div>
-  );
+			<Teamname />
+
+			<CreateRoomPass />
+			<CreateRoomButton />
+		</div>
+	);
 };
 
 export default page;
