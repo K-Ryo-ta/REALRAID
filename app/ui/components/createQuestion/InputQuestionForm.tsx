@@ -9,7 +9,11 @@ import {
   isCreatorState,
   themeWordsState,
 } from "@/app/states";
-import { supabase, updateTeamStatus } from "@/app/lib/supabase";
+import {
+  supabase,
+  updateCorrectList,
+  updateTeamStatus,
+} from "@/app/lib/supabase";
 import { ReturnThemeJSONData } from "@/app/lib/openAI";
 
 const InputQuestionForm: React.FC = () => {
@@ -88,8 +92,7 @@ const InputQuestionForm: React.FC = () => {
         return;
       }
       console.log("themeData.words", themeData.words);
-      setThemeWords(themeData.words);
-      console.log("themeWords", themeWords);
+      await updateCorrectList(themeData.words, teampassword);
       setLoading(false);
       await updateTeamStatus(teampassword, "setTheme");
     } catch (err) {
