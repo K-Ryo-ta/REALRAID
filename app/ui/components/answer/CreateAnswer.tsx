@@ -13,11 +13,13 @@ import AnswerColumn from "./AnswerColumn";
 import UsableCharacterColumn from "../createRoomPass/UsableCharacterColumn";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
-	allAnswerState,
-	teamnameState,
-	teampasswordState,
-	userListState,
-	themeWordsState,
+
+  allAnswerState,
+  teamnameState,
+  teampasswordState,
+  userListState,
+  themeWordsState,
+  correctCountState,
 } from "@/app/states";
 import { useRouter } from "next/navigation";
 import Timer from "../Timer";
@@ -41,9 +43,10 @@ const CreateRoomPass = () => {
 	const [answerStr, setAnswerStr] = useState("");
 	const correctWordsList = useRecoilValue(themeWordsState);
 
-	// 正解アニメーション用の状態
-	const [isCorrect, setIsCorrect] = useState<boolean>(false);
-	const [correctCount, setCorrectCount] = useState<number>(0); // 正解数を管理する状態
+  const [isCorrect, setIsCorrect] = useState<boolean>(false);
+  const [correctCountRecoil, setCorrectCountRecoil] =
+    useRecoilState(correctCountState); // 正解数を管理する状態
+
 
 	// Recoil状態からチーム名を取得
 	const teamname = useRecoilValue(teamnameState);
@@ -123,26 +126,23 @@ const CreateRoomPass = () => {
 		// RoomManagement(teampassword);
 	};
 
-	const checkAnswer = () => {
-		for (let i = 0; i < correctWordsList.length; i++) {
-			if (
-				answerStr === correctWordsList[i] &&
-				!allAnswer.includes(answerStr)
-			) {
-				updateCorrect();
-				setAllAnswer([...allAnswer, answerStr]);
-				setCorrectCount((prevCount) => prevCount + 1); // 正解数を更新
-				console.log("正解です");
-				// 正解時にアニメーションをトリガー
-				setIsCorrect(true);
-				setTimeout(() => setIsCorrect(false), 1000); // 1秒後にアニメーションを終了
-				break;
-			}
-		}
-		// 解答欄を空にして使える文字をリセット
-		setAnswerItems([]);
-		setUsableItems(usableCharacters);
-	};
+  const checkAnswer = () => {
+    for (let i = 0; i < correctWordsList.length; i++) {
+      if (answerStr === correctWordsList[i] && !allAnswer.includes(answerStr)) {
+        updateCorrect();
+        setAllAnswer([...allAnswer, answerStr]);
+        setCorrectCountRecoil((prevCount) => prevCount + 1); // 正解数を更新
+        console.log("正解です");
+        // 正解時にアニメーションをトリガー
+        setIsCorrect(true);
+        setTimeout(() => setIsCorrect(false), 1000); // 1秒後にアニメーションを終了
+        break;
+      }
+    }
+    // 解答欄を空にして使える文字をリセット
+    setAnswerItems([]);
+    setUsableItems(usableCharacters);
+  };
 
 	// answerStrの変更を監視してcheckAnswerを実行
 	useEffect(() => {
@@ -238,41 +238,37 @@ const CreateRoomPass = () => {
 		}
 	};
 
-	return (
-		<DndContext
-			sensors={sensors}
-			onDragEnd={handleDragEnd}
-			collisionDetection={rectIntersection}
-		>
-			<div
-				style={{
-					display: "flex",
-					flexDirection: "column",
-					alignItems: "center",
-					gap: "16px",
-				}}
-			>
-				<div className="top-0 sticky self-start">
-					<Timer onTimeUp={handleTimeUp} />
-				</div>
-				<div className={isCorrect ? styles.correctAnimation : ""}>
-					<AnswerColumn
-						id="answer-column"
-						items={answerItems}
-						setItems={setAnswerItems}
-					/>
-				</div>
-				<UsableCharacterColumn items={usableItems} />
-				<button
-					className="button_middle_background"
-					onClick={handleSubmit}
-				>
-					<div className="button_middle_front">回答</div>
-				</button>
-				<div>正解数: {correctCount}</div> {/* 正解数を表示 */}
-			</div>
-		</DndContext>
-	);
+
+  return (
+    <DndContext
+      sensors={sensors}
+      onDragEnd={handleDragEnd}
+      collisionDetection={rectIntersection}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "16px",
+        }}
+      >
+        <div className="self-start sticky top-0">
+          <Timer onTimeUp={handleTimeUp} />
+        </div>
+        <div className={isCorrect ? styles.correctAnimation : ""}>
+          <AnswerColumn
+            id="answer-column"
+            items={answerItems}
+            setItems={setAnswerItems}
+          />
+        </div>
+        <UsableCharacterColumn items={usableItems} />
+        <button onClick={handleSubmit}>回答</button>
+        <div>正解数: {correctCountRecoil}</div> {/* 正解数を表示 */}
+      </div>
+    </DndContext>
+  );
 };
 
 export default CreateRoomPass;

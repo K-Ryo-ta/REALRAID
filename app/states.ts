@@ -69,3 +69,8 @@ export const themeWordsState = atom<string[]>({
 	key: "themeWordsState",
 	default: [],
 });
+
+export const correctCountState = atom<number>({
+  key: "correctCount",
+  default: 0,
+});
