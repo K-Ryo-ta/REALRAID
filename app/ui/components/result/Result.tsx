@@ -10,7 +10,7 @@ import {
   resultState,
 } from "@/app/states";
 import { addParticipant, getCorrectDB, supabase } from "@/app/lib/supabase";
-import { set } from "firebase/database";
+import { FaInstagram, FaTwitter } from "react-icons/fa6";
 
 interface Participant {
   name: string;
@@ -110,8 +110,29 @@ const Result = () => {
           <li key={index}>
             {index + 1}位: {user.name} - 正解数: {user.correct_count}
             <br />
+            <a
+              href={user.twitterID ? `https://x.com/${user.twitterID}` : "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaTwitter size={30} color={user.twitterID ? "black" : "gray"} />
+            </a>
             Twitter ID: {user.twitterID || "なし"}
             <br />
+            <a
+              href={
+                user.instagramID
+                  ? `https://instagram.com/${user.instagramID}`
+                  : "#"
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaInstagram
+                size={30}
+                color={user.instagramID ? "black" : "gray"}
+              />
+            </a>
             Instagram ID: {user.instagramID || "なし"}
           </li>
         ))}
