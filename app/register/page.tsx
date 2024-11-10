@@ -5,6 +5,8 @@ import InputUsername from "../ui/components/Formcomponents/InputUsername";
 import RegisterButton from "../ui/components/Formcomponents/RegisterButton";
 import InputInstagramId from "../ui/components/Formcomponents/InputInstagramId";
 import InputTwitterId from "../ui/components/Formcomponents/InputTwitterId";
+import { FaTwitter } from "react-icons/fa6";
+import { FaInstagram } from "react-icons/fa";
 
 const page = () => {
 	return (
@@ -25,10 +27,17 @@ const page = () => {
 				<InputUsername />
 				<p className={styles.font_small}>
 					◾️◾️◾️ SNS ◾️◾️◾️<br></br>
-					ゲーム終了後にアカウントを共有できるよ！
+					ゲーム終了後に<br></br>アカウントを共有できるよ！
 				</p>
-				<InputInstagramId />
-				<InputTwitterId />
+				<div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+					<FaInstagram size={30} />
+					<InputInstagramId />
+				</div>
+
+				<div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+					<FaTwitter size={30} />
+					<InputTwitterId />
+				</div>
 
 				<RegisterButton />
 			</div>

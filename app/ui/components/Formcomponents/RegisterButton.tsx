@@ -74,14 +74,6 @@ const RegisterButton: React.FC = () => {
 			</button>
 			{isLoading && <p>処理中...</p>}
 			{!canSubmit && <p>チーム名と名前は必須です。</p>}
-
-			{/* 各値の表示 */}
-			<div>
-				<p>チーム名: {teamname}</p>
-				<p>ユーザー名: {username}</p>
-				<p>Instagram ID: {instagramId}</p>
-				<p>Twitter ID: {twitterId}</p>
-			</div>
 		</div>
 	);
 };
