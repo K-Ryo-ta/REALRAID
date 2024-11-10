@@ -9,6 +9,21 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      mojimoji_users: {
+        Row: {
+          created_at: string
+          id: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+        }
+        Relationships: []
+      }
       Relation_Teams_Users: {
         Row: {
           created_at: string
@@ -33,27 +48,33 @@ export type Database = {
       Teams: {
         Row: {
           correct: number | null
+          correct_list: string[] | null
           created_at: string
           host_id: string | null
           members: string[] | null
+          participants: Json[] | null
           status: string | null
           team_id: string
           team_name: string | null
         }
         Insert: {
           correct?: number | null
+          correct_list?: string[] | null
           created_at?: string
           host_id?: string | null
           members?: string[] | null
+          participants?: Json[] | null
           status?: string | null
           team_id: string
           team_name?: string | null
         }
         Update: {
           correct?: number | null
+          correct_list?: string[] | null
           created_at?: string
           host_id?: string | null
           members?: string[] | null
+          participants?: Json[] | null
           status?: string | null
           team_id?: string
           team_name?: string | null
@@ -70,21 +91,30 @@ export type Database = {
       }
       Users: {
         Row: {
+          correct_count: number | null
           created_at: string
           id: string
+          instagram_id: string | null
           teamname: string | null
+          twitter_id: string | null
           username: string | null
         }
         Insert: {
+          correct_count?: number | null
           created_at?: string
           id?: string
+          instagram_id?: string | null
           teamname?: string | null
+          twitter_id?: string | null
           username?: string | null
         }
         Update: {
+          correct_count?: number | null
           created_at?: string
           id?: string
+          instagram_id?: string | null
           teamname?: string | null
+          twitter_id?: string | null
           username?: string | null
         }
         Relationships: []

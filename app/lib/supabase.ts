@@ -149,3 +149,28 @@ export const getAllTeams = async () => {
 
   return data;
 };
+
+export const updateCorrectList = async (
+  correctList: string[],
+  teampassword: string
+) => {
+  const { error } = await supabase
+    .from("Teams")
+    .update({ correct_list: correctList }) // 修正: correctList -> correct_list
+    .eq("team_id", teampassword); // insertではなくupdateを使用している点にも注意
+  if (error) {
+    throw new Error("Error inserting team info: " + error.message);
+  }
+};
+
+export const getCorrectList = async (teampassword: string) => {
+  const { data, error } = await supabase
+    .from("Teams")
+    .select("correct_list")
+    .eq("team_id", teampassword)
+    .single();
+  if (error) {
+    throw new Error("Error inserting team info: " + error.message);
+  }
+  return data.correct_list;
+};
