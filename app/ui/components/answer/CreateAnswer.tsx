@@ -18,6 +18,7 @@ import {
   teampasswordState,
   userListState,
   themeWordsState,
+  correctCountState,
 } from "@/app/states";
 import { useRouter } from "next/navigation";
 import Timer from "../Timer";
@@ -44,7 +45,8 @@ const CreateRoomPass = () => {
 
   // 正解アニメーション用の状態
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
-  const [correctCount, setCorrectCount] = useState<number>(0); // 正解数を管理する状態
+  const [correctCountRecoil, setCorrectCountRecoil] =
+    useRecoilState(correctCountState); // 正解数を管理する状態
 
   // Recoil状態からチーム名を取得
   const teamname = useRecoilValue(teamnameState);
@@ -129,7 +131,7 @@ const CreateRoomPass = () => {
       if (answerStr === correctWordsList[i] && !allAnswer.includes(answerStr)) {
         updateCorrect();
         setAllAnswer([...allAnswer, answerStr]);
-        setCorrectCount((prevCount) => prevCount + 1); // 正解数を更新
+        setCorrectCountRecoil((prevCount) => prevCount + 1); // 正解数を更新
         console.log("正解です");
         // 正解時にアニメーションをトリガー
         setIsCorrect(true);
@@ -251,7 +253,7 @@ const CreateRoomPass = () => {
         </div>
         <UsableCharacterColumn items={usableItems} />
         <button onClick={handleSubmit}>回答</button>
-        <div>正解数: {correctCount}</div> {/* 正解数を表示 */}
+        <div>正解数: {correctCountRecoil}</div> {/* 正解数を表示 */}
       </div>
     </DndContext>
   );

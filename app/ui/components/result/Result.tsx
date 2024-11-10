@@ -1,26 +1,32 @@
 "use client";
-import React, { use, useState } from "react";
-import { animaldata } from "../../../data";
-import { db } from "@/app/lib/firebase";
-import { collection, addDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { teampasswordState } from "@/app/states";
+import {
+  teampasswordState,
+  usernameState,
+  correctCountState,
+} from "@/app/states";
 import { resultState } from "@/app/states";
-import { getCorrectDB } from "@/app/lib/supabase";
+import { addParticipant, getCorrectDB, supabase } from "@/app/lib/supabase";
+
+interface Participant {
+  name: string;
+  correct_count: number;
+}
 
 const Result = () => {
   const [answer, setAnswer] = useState<string>("");
   const teampassword = useRecoilValue(teampasswordState);
+  const username = useRecoilValue(usernameState);
   const [error, setError] = useState<string>("");
   const [result, setResult] = useRecoilState(resultState);
   const correct_result = useRecoilValue(resultState);
+  const correct_count = useRecoilValue(correctCountState);
   const [loading, setLoading] = useState(true);
+  const [userRanking, setUserRanking] = useState<Participant[]>([]); // 型を指定
 
   const getCorrect = async () => {
-    // const roomsRef = doc(collection(db, "rooms"), teampassword);
     try {
-      // const docSnapshot = await getDoc(roomsRef);
-      // const data = docSnapshot.data();
       const correct = await getCorrectDB(teampassword);
       if (correct) {
         setResult(correct);
@@ -33,15 +39,67 @@ const Result = () => {
   };
   getCorrect();
 
+  useEffect(() => {
+    setLoading(true);
+    const addParticipantfunc = async (
+      teampassword: string,
+      participant: Participant
+    ) => {
+      await addParticipant(teampassword, {
+        name: username,
+        correct_count: correct_count,
+      });
+    };
+    addParticipantfunc(teampassword, {
+      name: username,
+      correct_count: correct_count,
+    });
+
+    const stautsSubscription = supabase
+      .channel(`team_ranking_${teampassword}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "Teams",
+          filter: `team_id=eq.${teampassword}`,
+        },
+        (payload) => {
+          console.log("payload status", payload.new.participants);
+          setUserRanking(payload.new.participants);
+        }
+      )
+      .subscribe();
+    setLoading(false);
+    console.log("subscription", stautsSubscription);
+    return () => {
+      stautsSubscription.unsubscribe();
+    };
+  }, [teampassword]);
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
+  // 正解数順にソート
+  const sortedRanking = [...userRanking].sort(
+    (a, b) => b.correct_count - a.correct_count
+  );
+
   return (
     <div>
       <p>
-        正解数：<span className="correct_span">{correct_result}</span>
+        チーム正解数：<span className="correct_span">{correct_result}</span>
       </p>
+      <h3>チーム内ランキング</h3>
+      <ul>
+        {sortedRanking.map((user, index) => (
+          <li key={index}>
+            {index + 1}位: {user.name} - 正解数: {user.correct_count}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

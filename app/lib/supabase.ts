@@ -181,3 +181,34 @@ export const getCorrectList = async (teampassword: string) => {
   }
   return data.correct_list;
 };
+
+export const addParticipant = async (
+  teamId: string,
+  participant: { name: string; correct_count: number }
+) => {
+  // 現在のparticipants配列を取得
+  const { data, error } = await supabase
+    .from("Teams")
+    .select("participants")
+    .eq("team_id", teamId)
+    .single();
+
+  if (error) {
+    throw new Error("Error fetching participants:" + error.message);
+  }
+
+  // 既存のparticipants配列に新しい参加者を追加
+  const updatedParticipants = data.participants
+    ? [...data.participants, participant]
+    : [participant];
+
+  // participants配列を更新
+  const { error: updateError } = await supabase
+    .from("Teams")
+    .update({ participants: updatedParticipants })
+    .eq("team_id", teamId);
+
+  if (updateError) {
+    throw new Error("Error updating participants:" + updateError.message);
+  }
+};
